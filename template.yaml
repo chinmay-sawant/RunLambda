@@ -13,11 +13,8 @@ Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
-      # Handler name must match the name of the Go binary (usually the module name, or "main" for simple projects)
-      Handler: main
-      Runtime: go1.x
-      # CodeUri points to the directory containing main.go
-      CodeUri: .
+      PackageType: Image
+      ImageUri: hello-world-lambda
       Events:
         # Define a mock API Gateway event source so SAM knows how to structure the input
         Api:

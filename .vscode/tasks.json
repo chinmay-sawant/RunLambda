@@ -5,26 +5,8 @@
             "label": "sam-build-and-debug-go",
             "type": "shell",
             // Command runs SAM build, then invokes the function while starting Delve on port 5858.
-            "command": "sam build && sam local invoke --template-file template.yaml HelloWorldFunction --event event.json --debug-args \"-delveAPI=dlv,public=true,hosts=[\\\"0.0.0.0\\\"]\" --debug-port 5858",
+            "command": "sam build && sam local invoke --template-file template.yaml HelloWorldFunction --event event.json --debug-port 5858",
             "isBackground": true,
-            "problemMatcher": [
-                {
-                    "pattern": [
-                        {
-                            "regexp": ".",
-                            "file": 1,
-                            "location": 2,
-                            "message": 3
-                        }
-                    ],
-                    // CRITICAL: This pattern waits for SAM/Delve to indicate it's ready to attach.
-                    // If you change this, you may need a different pattern depending on your SAM CLI version.
-                    "background": {
-                        "activeOnStart": true,
-                        "beginsPattern": "Debugger event loop running." 
-                    }
-                }
-            ],
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
@@ -33,15 +15,31 @@
                 "cwd": "${workspaceFolder}"
             }
         },
-        // Required task to kill the background SAM process started by the preLaunchTask.
+        // Task to start local API Gateway
         {
-            "label": "terminate-sam-session",
-            "type": "process",
-            "command": "echo",
-            "problemMatcher": [],
-            "dependsOn": ["sam-build-and-debug-go"],
-            "runOptions": {
-                "instanceLimit": 1
+            "label": "sam-start-api",
+            "type": "shell",
+            "command": "sam local start-api --port 3001",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        // Task to invoke Lambda via API Gateway (run after start-api)
+        {
+            "label": "invoke-api",
+            "type": "shell",
+            "command": "curl http://localhost:3001/hello",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
             }
         }
     ]

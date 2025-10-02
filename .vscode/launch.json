@@ -5,6 +5,13 @@
             "name": "Debug Lambda via SAM CLI",
             "type": "go",
             "request": "attach",
+            "mode": "remote",
+            "substitutePath": [
+                {
+                    "from": "${workspaceFolder}",
+                    "to": "/var/task"
+                }
+            ],
             // Connect to the port specified in tasks.json (5858)
             "port": 5858,
             "host": "127.0.0.1",
