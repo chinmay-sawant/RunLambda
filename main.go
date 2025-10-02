@@ -23,5 +23,7 @@ func HandleRequest(request events.APIGatewayProxyRequest) (events.APIGatewayProx
 func main() {
 
 	// Uncomment for Lambda deployment
+	fmt.Println("Starting Lambda function...")
 	lambda.Start(HandleRequest)
+	fmt.Println("Lambda function started.")
 }
