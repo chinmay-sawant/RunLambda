@@ -1,38 +1,23 @@
 {
-  "resource": "/hello",
-  "path": "/hello",
-  "httpMethod": "GET",
-  "headers": {
-    "Accept": "*/*",
-    "Accept-Encoding": "gzip, deflate",
-    "Host": "localhost:3000",
-    "User-Agent": "curl/7.64.1"
-  },
-  "queryStringParameters": null,
-  "pathParameters": null,
-  "stageVariables": null,
-  "requestContext": {
-    "accountId": "123456789012",
-    "resourceId": "abcd1234",
-    "stage": "prod",
-    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
-    "identity": {
-      "cognitoIdentityPoolId": null,
-      "accountId": null,
-      "cognitoIdentityId": null,
-      "caller": null,
-      "apiKey": null,
-      "sourceIp": "127.0.0.1",
-      "cognitoAuthenticationType": null,
-      "cognitoAuthenticationProvider": null,
-      "userArn": null,
-      "userAgent": "curl/7.64.1",
-      "user": null
+    "resource": "/my-resource",
+    "path": "/my-resource",
+    "httpMethod": "POST",
+    "headers": {
+        "Accept": "*/*",
+        "Content-Type": "application/json"
     },
-    "resourcePath": "/hello",
-    "httpMethod": "GET",
-    "apiId": "abcd1234"
-  },
-  "body": null,
-  "isBase64Encoded": false
+    "queryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "123456",
+        "apiId": "abcdefg",
+        "resourcePath": "/my-resource",
+        "httpMethod": "POST",
+        "path": "/prod/my-resource",
+        "accountId": "123456789012",
+        "stage": "prod"
+    },
+    "body": "{\"data\":\"test data from local debug event\"}",
+    "isBase64Encoded": false
 }

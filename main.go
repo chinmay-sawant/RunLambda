@@ -4,9 +4,15 @@ import (
 	"fmt"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
 )
 
 func HandleRequest(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	fmt.Println("Inside the handler")
+	fmt.Printf("Request method: %s\n", request.HTTPMethod)
+	fmt.Printf("Request path: %s\n", request.Path)
+	fmt.Printf("Request body: %s\n", request.Body)
+	fmt.Println("Processing request...")
 	return events.APIGatewayProxyResponse{
 		StatusCode: 200,
 		Body:       `{"message":"Hello World"}`,
@@ -15,22 +21,7 @@ func HandleRequest(request events.APIGatewayProxyRequest) (events.APIGatewayProx
 }
 
 func main() {
-	// Local debugging simulation
-	request := events.APIGatewayProxyRequest{
-		Resource:   "/hello",
-		Path:       "/hello",
-		HTTPMethod: "GET",
-		Headers:    map[string]string{"Content-Type": "application/json"},
-		RequestContext: events.APIGatewayProxyRequestContext{
-			RequestID: "test",
-		},
-	}
-	response, err := HandleRequest(request)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Response: %+v\n", response)
 
 	// Uncomment for Lambda deployment
-	// lambda.Start(HandleRequest)
+	lambda.Start(HandleRequest)
 }

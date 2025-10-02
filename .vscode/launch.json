@@ -2,12 +2,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Local",
+            // Name of the debug configuration you will see in VS Code
+            "name": "Debug Lambda (Go Local Mode)",
+            // Use the standard Go debugger
             "type": "go",
             "request": "launch",
             "mode": "debug",
+            // *** UPDATED: Pointing to the new local_debug.go file ***
             "program": "${workspaceFolder}/main.go",
-            "showLog": true
+            "env": {
+                // Mock environment variables typically available in a real Lambda environment
+                "AWS_REGION": "us-west-2",
+                "AWS_LAMBDA_FUNCTION_NAME": "MyLocalFunction",
+                "IS_LOCAL_DEBUG": "true" 
+            },
+            // Arguments passed to the executable (the path to the mock event file)
+            "args": ["${workspaceFolder}/event.json"]
+        },
+        {
+            "name": "Debug SAM Local",
+            "type": "go",
+            "request": "attach",
+            "mode": "remote",
+            "remotePath": "",
+            "port": 5986,
+            "host": "127.0.0.1",
+            "showLog": true,
+            "preLaunchTask": "sam-debug"
         }
     ]
 }
